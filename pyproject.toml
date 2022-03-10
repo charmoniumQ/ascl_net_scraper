@@ -1,0 +1,113 @@
+[tool.poetry]
+name = "ASCL.net-scraper"
+version = "0.1.0"
+description = "Scrapes https://ASCL.net."
+authors = ["Samuel Grayson <sam@samgrayson.me>"]
+license = "MIT"
+readme = "README.rst"
+repository = "https://github.com/charmoniumQ/ASCL.net-scraper"
+classifiers = [
+	"Intended Audience :: Science/Research",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+# For ./script.py fmt
+autoimport = "^0.7.5"
+isort = "^5.10.0"
+black = "^21.10b0"
+pylint = "^2.11.1"
+
+# For ./script.py test
+mypy = "^0.910"
+pytest = "^6.2.5"
+
+# Runs pytest in parallel
+pytest-xdist = "^2.4.0"
+
+# For coverage
+pytest-cov = "^3.0.0"
+coverage = "^6.1.2"
+
+# For ./script.py all-tests
+tox = "^3.24.4"
+radon = "^5.1.0"
+twine = "^3.5.0"
+proselint = "^0.13.0"
+rstcheck = "^3.3.1"
+
+# For ./script.py publish
+bump2version = "^1.0.1"
+
+# For ./script.py
+"charmonium.async-subprocess" = "^0.1.7"
+typer = "^0.4.0"
+termcolor = "^1.1.0"
+typing-extensions = "^4.1.1"
+
+# For debugging
+ipython = "^7.29.0"
+ipdb = "^0.13.9"
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+addopts = "--numprocesses=0 --doctest-modules --doctest-glob='*.rst'"
+
+[tool.coverage.run]
+data_file = "build/coverage"
+
+[tool.coverage.html]
+directory = "build/htmlcov"
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    'pragma: no cover',
+    'def __repr__',
+    'if self\.debug',
+    'raise AssertionError',
+    'raise NotImplementedError',
+    'if False:',
+    'if __name__ == .__main__.:',
+	'if TYPE_CHECKING',
+    '@(abc\.)?abstractmethod',
+    '\w*\.\.\.$',
+    '\w*pass$',
+]
+
+# [tool.pylint]
+# Too long for inclusion here
+# see pylintrc
+
+[tool.mypy]
+strict = true
+pretty = true
+error_summary = true
+color_output = true
+#mypy_path = stubs
+
+[tool.bump2version]
+commit = true
+tag = true
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py{39}
+# Make sure to install the Python versions listed here in the Nix flake.
+isolated_build = True
+[testenv]
+whitelist_externals = poetry
+skip_install = true
+commands =
+    poetry install
+    {toxinidir}/script.py per-env-tests
+"""
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
