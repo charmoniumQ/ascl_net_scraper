@@ -26,13 +26,13 @@ from typing import (
     cast,
 )
 
-import autoimport
+#import autoimport
 import isort
-import setuptools  # type: ignore
-import toml  # type: ignore
+import setuptools
+import toml
 import typer
 from charmonium.async_subprocess import run
-from termcolor import cprint  # type: ignore
+from termcolor import cprint
 from typing_extensions import ParamSpec
 
 Params = ParamSpec("Parms")
@@ -130,7 +130,8 @@ all_python_files = list(
 
 def autoimport_and_isort(path: Path) -> None:
     orig_code = path.read_text()
-    code = autoimport.fix_code(orig_code)
+    code = orig_code
+    # code = autoimport.fix_code(orig_code)
     code = isort.code(code)
     # if hash(code) != hash(orig_code):
     #     path.write_text(code)
@@ -284,7 +285,7 @@ async def all_tests_inner(interactive: bool) -> None:
         env={
             **os.environ,
             "PY_COLORS": "1",
-            "TOX_PARALLEL_NO_SPINNER": "" if interactive else "1"
+            "TOX_PARALLEL_NO_SPINNER": "" if interactive else "1",
         },
         check=True,
     )

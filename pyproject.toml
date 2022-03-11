@@ -11,7 +11,9 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
+html5lib = "^1.1"
+"charmonium.cache" = "^1.2.6"
 
 [tool.poetry.dev-dependencies]
 # For ./script.py fmt
@@ -44,12 +46,20 @@ bump2version = "^1.0.1"
 # For ./script.py
 "charmonium.async-subprocess" = "^0.1.7"
 typer = "^0.4.0"
-termcolor = "^1.1.0"
 typing-extensions = "^4.1.1"
+termcolor = "^1.1.0"
+types-termcolor = "^1.1.3"
+toml = "^0.10.2"
+types-toml = "^0.10.4"
+types-setuptools = "^57.4.10"
 
 # For debugging
 ipython = "^7.29.0"
 ipdb = "^0.13.9"
+
+# rest
+types-requests = "^2.27.11"
+types-beautifulsoup4 = "^4.10.14"
 
 [tool.isort]
 profile = "black"

@@ -13,8 +13,8 @@
         name-test = "${name}-test";
         default-python = pkgs.python39;
         # Alternative Pythons for Tox
-        alternative-pythons = [
-        ];
+        alternative-pythons = [];
+        binary-dependencies = [];
       in {
         packages.${name} = pkgs.poetry2nix.mkPoetryApplication {
           projectDir = ./.;
@@ -42,10 +42,8 @@
         };
 
         packages.${name-shell} = pkgs.mkShell {
-          buildInputs = alternative-pythons ++ [
+          buildInputs = alternative-pythons ++ binary-dependencies ++ [
             pkgs.poetry
-            pkgs.libseccomp.lib
-            pkgs.gcc-unwrapped.lib
           ];
           shellHook = ''
             env_hash=$(sha1sum poetry.lock | cut -f1 -d' ')
@@ -60,7 +58,6 @@
             export PYTHONNOUSERSITE=true
             export VIRTUAL_ENV=$(poetry env info -p)
             export PATH=$VIRTUAL_ENV/bin:$PATH
-            export LD_LIBRARY_PATH=LD_LIBRARY_PATH=$(nix eval --raw nixpkgs#libseccomp.lib)/lib:$(nix eval --raw nixpkgs#gcc-unwrapped.lib)/lib:$LD_LIBRARY_PATH
           '';
           # TODO: write a check expression (`nix flake check`)
         };
