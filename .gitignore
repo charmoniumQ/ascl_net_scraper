@@ -1,3 +1,6 @@
 /build/
 __pycache__/
-.tox/
+/.tox/
+/.direnv/
+
+/.cache/

@@ -1,53 +1,37 @@
 # How to setup the development environment
 
-This project manages dependencies through [Poetry][poetry] or through [Nix][nix]. These are package managers that create a "project-local" development environment with minimal system-wide changes.
+## With Nix
 
-- Poetry is a wrapper around virtualenv/pip, so it can only manage packages in PyPI. Use it like so:
+[Nix][nix] is a language-agnostic package manager that installs packages locally. [Nix Flakes][nix flakes] are a way of specifying dependencies to Nix declaraively. Currently, they are [installed separately][install nix flakes]. Use `nix develop` to get a shell or `nix develop --command ipython` to run commands in the project-specific environment.
 
-    ```
-    # install Python
-    # Version should match that in `pyproject.toml` > `tool.poetry.dependencies` > `python`
+[nix]: https://nixos.org/
+[nix flakes]: https://nixos.wiki/wiki/Flakes
+[install nix flakes]: https://nixos.wiki/wiki/Flakes#Installing_flakes
 
-    $ python -m pip --user install poetry
-    # This is the only "system-wide" command.
+## With Nix and direnv
 
-    $ poetry install
-    # This creates a virtualenv and installs the dev dependencies.
+In addition to Nix, I suggest also installing [direnv][direnv] and [nix-direnv][nix-direnv]. Then simply `cd`ing to the project will activate the project-specific environment.
 
-    $ poetry run ipython
-    # This runs just one command, "ipython" in this case, in the project environment.
+Consider adding this line in your shell's initfile so you can see when `direnv` is activated. `PS1="\$PREPEND_TO_PS1$PS1"` Note that the sigil (dollar sign) in `$PREPEND_TO_PS1` is quoted but the one in `$PS1` is not, so `PS1` is evaluated when the shell initializes, but `PREPEND_TO_PS1` is evaluated before every prompt.
 
-    $ poetry shell
-    # This gives you a shell in the project environment.
-    ```
+[direnv]: https://direnv.net/
+[nix-direnv]: https://github.com/nix-community/nix-direnv
 
-- Nix is a language-agnostic UNIX-agnostic package manager that can create project-local environments. Nix uses Poetry's config file thanks to [poetry2nix][poetry2nix], but it can install binary dependencies that are not in PyPI. However, not all Python packages work in Nix (see [poetry2nix issue #413][issue-413]). Use it like so:
+## With Poetry
 
-    ```
-    # Install nix
-    # This is the only "system-wide" command.
-
-    $ nix develop --command ipython
-    # This runs just one command in the project environment.
-
-    $ nix develop --command zsh
-    # This runs a shell in the project environment.
-    ```
+Nix can be trouble to set up, so here is how to use the project without Nix. [Poetry][poetry] is a wrapper around `pip`/`virtualenv`, and it will manage dependencies from PyPI, but *you* have to manage external dependencies, e.g. installing the right version of Python, C libraries, etc. Poetry can be installed globally with `python -m pip install poetry. `Use `poetry shell` to get a shell and `poetry run ipython` to run a command in the project-specific environment.
 
 [poetry]: https://python-poetry.org/
-[nix]: https://nixos.org/
-[poetry2nix]: https://github.com/nix-community/poetry2nix
-[issue-413]: https://github.com/nix-community/poetry2nix/issues/413
 
 # How to use development tools
 
-Once in the development environment, use `./script.py` to run black, isort, mypy, etc.
+Once in the development environment, use `./script.py` to run development tools. In the order of usefulness,
 
 - `./script.py fmt` runs code formatters (autoimport, isort, black).
 
 - `./script.py test` runs tests and code complexity analysis (mypy, pylint, pytest, coverage, radon in parallel).
 
-- `./script.py all-tests` runs the usual tests and more (proselint, rstcheck, twine, pytest, tox). It runs them in multiple Python versions. This is mostly for CI.
+- `./script.py all-tests` runs the usual tests and more (proselint, rstcheck, twine, tox (which runs mypy and pytest)). This is intended for CI.
 
 - `./script.py docs` builds the documentation locally (sphinx, proselint).
 
