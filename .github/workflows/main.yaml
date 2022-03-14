@@ -1,6 +1,7 @@
 on: [push, pull_request]
+name: test
 jobs:
-  all-tests:
+  test:
     runs-on: ubuntu-latest
 
     steps:
