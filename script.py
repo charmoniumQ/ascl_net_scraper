@@ -26,7 +26,7 @@ from typing import (
     cast,
 )
 
-# import autoimport
+#import autoimport
 import isort
 import setuptools
 import toml
@@ -337,8 +337,18 @@ def dct_to_args(dct: Mapping[str, Union[bool, int, float, str]]) -> List[str]:
 
 
 @app.command()
-def publish(version_part: VersionPart, verify: bool = True, bump: bool = True) -> None:
-    asyncio.run(all_tests_inner(True) if verify else docs_inner())
+def publish(
+        version_part: VersionPart,
+        verify: bool = True,
+        docs: bool = True,
+        bump: bool = True,
+) -> None:
+    if verify:
+        asyncio.run(all_tests_inner(True))
+    elif docs:
+        # verify => all_tests_inner => docs already.
+        # This is only need for the case where (not verify and docs).
+        asyncio.run(docs_inner())
     if bump:
         subprocess.run(
             [
