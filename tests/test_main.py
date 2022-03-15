@@ -1,4 +1,5 @@
-from ascl_net_scraper import __version__
+from tqdm import tqdm
+from ascl_net_scraper import __version__, scrape_details, scrape_index_list
 
 
 def test_main() -> None:
@@ -10,4 +11,3 @@ def test_main() -> None:
         assert record.credit == detailed_record.credit
         assert record.abstract == detailed_record.abstract
         assert record.details_url == detailed_record.url
-
