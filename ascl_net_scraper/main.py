@@ -3,7 +3,6 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from typing import (
-    TYPE_CHECKING,
     Iterable,
     List,
     Mapping,
@@ -21,21 +20,21 @@ from tqdm import tqdm
 DEFAULT_PARSER = "html5lib"
 group = MemoizedGroup(fine_grain_persistence=True)
 
-import logging
+# import logging
 
-logger = logging.getLogger("charmonium.freeze")
-logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler("freeze.log")
-fh.setLevel(logging.DEBUG)
-fh.setFormatter(logging.Formatter("%(asctime)s: %(message)s"))
-logger.addHandler(fh)
+# logger = logging.getLogger("charmonium.freeze")
+# logger.setLevel(logging.DEBUG)
+# fh = logging.FileHandler("freeze.log")
+# fh.setLevel(logging.DEBUG)
+# fh.setFormatter(logging.Formatter("%(asctime)s: %(message)s"))
+# logger.addHandler(fh)
 
-logger = logging.getLogger("charmonium.cache.ops")
-logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler("cache.log")
-fh.setLevel(logging.DEBUG)
-fh.setFormatter(logging.Formatter("%(asctime)s: %(message)s"))
-logger.addHandler(fh)
+# logger = logging.getLogger("charmonium.cache.ops")
+# logger.setLevel(logging.DEBUG)
+# fh = logging.FileHandler("cache.log")
+# fh.setLevel(logging.DEBUG)
+# fh.setFormatter(logging.Formatter("%(asctime)s: %(message)s"))
+# logger.addHandler(fh)
 
 
 @dataclass

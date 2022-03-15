@@ -42,7 +42,7 @@
         };
 
         packages.${name-shell} = pkgs.mkShell {
-          buildInputs = nix-dev-dependencies;
+          buildInputs = nix-dev-dependencies ++ [default-python];
           shellHook = ''
             env_hash=$(sha1sum poetry.lock | cut -f1 -d' ')
             if [ ! -f build/$env_hash ]; then
