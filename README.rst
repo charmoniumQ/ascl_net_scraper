@@ -10,8 +10,10 @@ ascl_net_scraper
    :target: https://pypi.org/project/ascl_net_scraper
 .. image:: https://img.shields.io/pypi/l/ascl_net_scraper
    :alt: PyPI License
+   :target: https://github.com/charmoniumQ/ascl_net_scraper/blob/main/LICENSE
 .. image:: https://img.shields.io/pypi/pyversions/ascl_net_scraper
    :alt: Python Versions
+   :target: https://pypi.org/project/ascl_net_scraper
 .. image:: https://img.shields.io/github/stars/charmoniumQ/ascl_net_scraper?style=social
    :alt: GitHub stars
    :target: https://github.com/charmoniumQ/ascl_net_scraper
@@ -24,8 +26,6 @@ ascl_net_scraper
 .. image:: https://img.shields.io/librariesio/sourcerank/pypi/ascl_net_scraper
    :alt: libraries.io sourcerank
    :target: https://libraries.io/pypi/ascl_net_scraper
-.. image:: https://img.shields.io/badge/docs-yes-success
-   :alt: Documentation link
 .. image:: http://www.mypy-lang.org/static/mypy_badge.svg
    :target: https://mypy.readthedocs.io/en/stable/
    :alt: Checked with Mypy
