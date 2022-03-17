@@ -49,3 +49,8 @@ guide`_.
     $ pip install ascl_net_scraper
 
 >>> import ascl_net_scraper
+>>> codes = ascl_net_scraper.scrape_index(5)
+>>> codes[0]
+CodeRecord(ascl_id=None, title='2-DUST: Dust radiative transfer code', credit=['Ueta, Toshiya'], abstract='<p>...</p>', details_url='https://ascl.net/1604.006')
+>>> codes[0].get_details()
+DetailedCodeRecord(ascl_id=None, title='2-DUST: Dust radiative transfer code', credit=['Ueta, Toshiya'], abstract='<p>...</p>', url='https://ascl.net/1604.006', code_sites=['https://github.com/sundarjhu/2-DUST/'], used_in=['https://ui.adsabs.harvard.edu/abs/2004ApJ...614..371M'], described_in=['https://ui.adsabs.harvard.edu/abs/2003ApJ...586.1338U'], bibcode='2016ascl.soft04006U', preferred_citation_method='<p><a href="https://ui.adsabs.harvard.edu/abs/2003ApJ...586.1338U">https://ui.adsabs.harvard.edu/abs/2003ApJ...586.1338U</a></p>', discuss_url='/phpBB3/viewtopic.php?t=33976', views=...)

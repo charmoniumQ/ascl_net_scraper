@@ -26,7 +26,7 @@ from typing import (
     cast,
 )
 
-#import autoimport
+# import autoimport
 import isort
 import setuptools
 import toml
@@ -338,10 +338,10 @@ def dct_to_args(dct: Mapping[str, Union[bool, int, float, str]]) -> List[str]:
 
 @app.command()
 def publish(
-        version_part: VersionPart,
-        verify: bool = True,
-        docs: bool = True,
-        bump: bool = True,
+    version_part: VersionPart,
+    verify: bool = True,
+    docs: bool = True,
+    bump: bool = True,
 ) -> None:
     if verify:
         asyncio.run(all_tests_inner(True))
