@@ -85,6 +85,7 @@ def scrape_index_lazy(
 
 github_regex = re.compile(r"https?://github.com/[a-zA-Z0-9\.\-/]")
 
+
 @dataclass
 class DetailedCodeRecord:
     """Detailed information about a code, for example <https://ascl.net/0000.000>."""
@@ -106,6 +107,7 @@ class DetailedCodeRecord:
     def github(self) -> Optional[str]:
         return cast(Optional[str], get_github_for(self))
 
+
 @memoize(group=group)
 def get_github_for(record: DetailedCodeRecord) -> Optional[str]:
     # First, see if any code_site is a github site.
@@ -121,12 +123,13 @@ def get_github_for(record: DetailedCodeRecord) -> Optional[str]:
         except requests.exceptions.RequestException:
             # A lot of old sites are dead.
             continue
-        for tag in bs4.BeautifulSoup(text).find_all("a"):
-            if re.match(tag.attrs["href"], text):
-                return tag.attrs["href"]
+        for tag in bs4.BeautifulSoup(text, DEFAULT_PARSER).find_all("a"):
+            if "href" in tag.attrs and re.match(tag.attrs["href"], text):
+                return cast(str, tag.attrs["href"])
 
     # Third, give up.
     return None
+
 
 def dl_to_dict(dl: bs4.Tag) -> Mapping[str, bs4.Tag]:
     return {
