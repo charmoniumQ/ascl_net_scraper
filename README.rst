@@ -48,29 +48,29 @@ guide`_.
 
     $ pip install ascl_net_scraper
 
->>> from rich import print # just for pretty printing
+>>> from rich.pretty import pprint # for pretty printing
 >>> import ascl_net_scraper
 >>> codes = ascl_net_scraper.scrape_index(5)
->>> print(codes[0]) # doctest: +ELLIPSIS
+>>> pprint(codes[0]) # doctest: +ELLIPSIS
 CodeRecord(
-    ascl_id=None,
-    title='2-DUST: Dust radiative transfer code',
-    credit=['Ueta, Toshiya'],
-    abstract='<p>2-DUST is a general-purpose dust radiative transfer code...</p>',
-    details_url='https://ascl.net/1604.006'
+│   ascl_id=None,
+│   title='2-DUST: Dust radiative transfer code',
+│   credit=['Ueta, Toshiya'],
+│   abstract='<p>...</p>',
+│   details_url='https://ascl.net/1604.006'
 )
->>> print(codes[0].get_details()) # doctest: +ELLIPSIS
+>>> pprint(codes[0].get_details(), max_string=70) # doctest: +ELLIPSIS
 DetailedCodeRecord(
-    ascl_id=None,
-    title='2-DUST: Dust radiative transfer code',
-    credit=['Ueta, Toshiya'],
-    abstract='<p>2-DUST is a general-purpose dust radiative transfer code...</p>',
-    url='https://ascl.net/1604.006',
-    code_sites=['https://github.com/sundarjhu/2-DUST/'],
-    used_in=['https://ui.adsabs.harvard.edu/abs/2004ApJ...614..371M'],
-    described_in=['https://ui.adsabs.harvard.edu/abs/2003ApJ...586.1338U'],
-    bibcode='2016ascl.soft04006U',
-    preferred_citation_method='<p>...</p>',
-    discuss_url='/phpBB3/viewtopic.php?t=33976',
-    views=...
+│   ascl_id=None,
+│   title='2-DUST: Dust radiative transfer code',
+│   credit=['Ueta, Toshiya'],
+│   abstract='<p>2-DUST is a general-purpose dust radiative transfer code for an axi'+319,
+│   url='https://ascl.net/1604.006',
+│   code_sites=['https://github.com/sundarjhu/2-DUST/'],
+│   used_in=['https://ui.adsabs.harvard.edu/abs/2004ApJ...614..371M'],
+│   described_in=['https://ui.adsabs.harvard.edu/abs/2003ApJ...586.1338U'],
+│   bibcode='2016ascl.soft04006U',
+│   preferred_citation_method='<p><a href="https://ui.adsabs.harvard.edu/abs/2003ApJ...586.1338U">htt'+58,
+│   discuss_url='/phpBB3/viewtopic.php?t=33976',
+│   views=...
 )

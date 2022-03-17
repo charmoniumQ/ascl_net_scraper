@@ -112,7 +112,7 @@ class DetailedCodeRecord:
 def get_github_for(record: DetailedCodeRecord) -> Optional[str]:
     # First, see if any code_site is a github site.
     for site in record.code_sites:
-        if re.match(github_regex, site):
+        if github_regex.match(site):
             return site
 
     # Second, see if any code_site links to a github site.
@@ -124,7 +124,7 @@ def get_github_for(record: DetailedCodeRecord) -> Optional[str]:
             # A lot of old sites are dead.
             continue
         for tag in bs4.BeautifulSoup(text, DEFAULT_PARSER).find_all("a"):
-            if "href" in tag.attrs and re.match(tag.attrs["href"], text):
+            if "href" in tag.attrs and github_regex.match(tag.attrs["href"]):
                 return cast(str, tag.attrs["href"])
 
     # Third, give up.
