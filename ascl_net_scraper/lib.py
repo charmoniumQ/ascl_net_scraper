@@ -83,8 +83,7 @@ def scrape_index_lazy(
         )
 
 
-github_regex = re.compile(r"(https?://github.com/[a-zA-Z0-9\.\-]*/[a-zA-Z0-9\.\-]*)")
-
+github_regex = re.compile(r"(https?://github.com/[a-zA-Z0-9\.\-/]")
 
 @dataclass
 class DetailedCodeRecord:
@@ -114,13 +113,6 @@ def get_github_for(record: DetailedCodeRecord) -> Optional[str]:
         if re.match(github_regex, site):
             return site
 
-    # Second, see if any code_site is part of a github site.
-    # This includes https://github.com/author/ (no repo)
-    # and https://github.com/author/repo/blob/main/path (subpath in repo)
-    for site in record.code_sites:
-        if re.match(r"https?://github.com/[a-zA-Z0-9\.\-\/]*", site):
-            return site
-
     # Second, see if any code_site links to a github site.
     for site in record.code_sites:
         try:
@@ -129,8 +121,9 @@ def get_github_for(record: DetailedCodeRecord) -> Optional[str]:
         except requests.exceptions.RequestException:
             # A lot of old sites are dead.
             continue
-        if match := re.search(github_regex, text):
-            return match.group(0)
+        for tag in bs4.BeautifulSoup(text).find_all("a"):
+            if re.match(tag.attrs["href"], text):
+                return tag.attrs["href"]
 
     # Third, give up.
     return None
