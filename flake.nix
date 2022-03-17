@@ -46,7 +46,7 @@
           shellHook = ''
             env_hash=$(sha1sum poetry.lock | cut -f1 -d' ')
             if [ ! -f build/$env_hash ]; then
-                pip install --upgrade poetry
+                pip install --user --upgrade pip poetry
                 poetry install --remove-untracked
                 if [ ! -d build ]; then
                     mkdir build
