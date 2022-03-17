@@ -14,7 +14,7 @@
         name-test = "${name}-test";
         default-python = pkgs.python310;
         nix-dev-dependencies = [
-          pkgs.python310Packages.pip
+          pkgs.poetry
         ];
       in {
         packages.${name} = pkgs.poetry2nix.mkPoetryApplication {
@@ -46,7 +46,6 @@
           shellHook = ''
             env_hash=$(sha1sum poetry.lock | cut -f1 -d' ')
             if [ ! -f build/$env_hash ]; then
-                pip install --user --upgrade pip poetry
                 poetry install --remove-untracked
                 if [ ! -d build ]; then
                     mkdir build
