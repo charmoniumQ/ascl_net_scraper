@@ -83,7 +83,7 @@ def scrape_index_lazy(
         )
 
 
-github_regex = re.compile(r"(https?://github.com/[a-zA-Z0-9\.\-/]")
+github_regex = re.compile(r"https?://github.com/[a-zA-Z0-9\.\-/]")
 
 @dataclass
 class DetailedCodeRecord:
