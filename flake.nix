@@ -45,7 +45,7 @@
           buildInputs = nix-dev-dependencies ++ [default-python];
           shellHook = ''
             env_hash=$(sha1sum poetry.lock | cut -f1 -d' ')
-            if [ ! -f build/$env_hash ]; then
+            if [ ! -f build/$env_hash.v2 ]; then
                 poetry install --remove-untracked
                 if [ ! -d build ]; then
                     mkdir build
