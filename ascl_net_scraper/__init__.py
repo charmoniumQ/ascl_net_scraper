@@ -1,4 +1,4 @@
-__version__ = "0.3.3"
+__version__ = "0.3.4"
 from .lib import CodeRecord as CodeRecord
 from .lib import DetailedCodeRecord as DetailedCodeRecord
 from .lib import scrape_details as scrape_details
