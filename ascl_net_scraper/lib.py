@@ -126,7 +126,13 @@ def get_github_for(record: DetailedCodeRecord) -> Optional[str]:
             # A lot of old sites are dead.
             continue
         for tag in bs4.BeautifulSoup(text, DEFAULT_PARSER).find_all("a"):
-            if "href" in tag.attrs and github_regex.match(tag.attrs["href"]):
+            # Note that orderedlist is the author of a set of popular github pages style templates, not the underlying astronomical software.
+            # See https://github.com/orderedlist/minimal, for example.
+            if (
+                "href" in tag.attrs
+                and "orderedlist" not in tag.attrs["href"]
+                and github_regex.match(tag.attrs["href"])
+            ):
                 return cast(str, tag.attrs["href"])
 
     # Third, give up.

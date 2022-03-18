@@ -74,3 +74,6 @@ DetailedCodeRecord(
 │   discuss_url='/phpBB3/viewtopic.php?t=33976',
 │   views=...
 )
+>>> # "github" is a special computed attribute:
+>>> codes[0].get_details().github
+'https://github.com/sundarjhu/2-DUST/'
