@@ -83,7 +83,7 @@ def scrape_index_lazy(
         )
 
 
-github_regex = re.compile(r"https?://github.com/[a-zA-Z0-9\.\-/]")
+github_regex = re.compile(r"https?://(?:www.)?github.com/[a-zA-Z0-9\.\-/]*")
 
 
 @dataclass
@@ -117,6 +117,8 @@ def get_github_for(record: DetailedCodeRecord) -> Optional[str]:
 
     # Second, see if any code_site links to a github site.
     for site in record.code_sites:
+        if "doi.org" in site:
+            continue
         try:
             # A lot of old sites take forever to time out.
             text = requests.get(site, timeout=4).text
