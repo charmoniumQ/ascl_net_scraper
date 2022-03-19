@@ -338,14 +338,14 @@ def dct_to_args(dct: Mapping[str, Union[bool, int, float, str]]) -> List[str]:
 
 @app.command()
 def publish(
-    version_part: VersionPart,
-    verify: bool = True,
-    docs: bool = True,
-    bump: bool = True,
+        version_part: VersionPart,
+        verify: bool = True,
+        gen_docs: bool = True,
+        bump: bool = True,
 ) -> None:
     if verify:
         asyncio.run(all_tests_inner(True))
-    elif docs:
+    elif gen_docs:
         # verify => all_tests_inner => docs already.
         # This is only need for the case where (not verify and docs).
         asyncio.run(docs_inner())
@@ -366,12 +366,18 @@ def publish(
             ],
             check=True,
         )
+    extra_args = []
+    if "TWINE_USERNAME" in os.environ:
+        extra_args += ["--username", os.environ["TWINE_USERNAME"]]
+    if "TWINE_PASSWORD" in os.environ:
+        extra_args += ["--password", os.environ["TWINE_PASSWORD"]]
     subprocess.run(
-        ["poetry", "publish", "--build"],
+        ["poetry", "publish", "--build", **extra_args],
         check=True,
     )
     shutil.rmtree("dist")
     subprocess.run(["git", "push", "--tags"], check=True)
+    subprocess.run(["git", "push"], check=True)
     # TODO: publish docs
 
 

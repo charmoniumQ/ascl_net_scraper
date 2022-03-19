@@ -6,6 +6,8 @@ authors = ["Samuel Grayson <sam+dev@samgrayson.me>"]
 license = "MIT"
 readme = "README.rst"
 repository = "https://github.com/charmoniumQ/ascl_net_scraper"
+
+keywords = ["webscraper"]
 classifiers = [
 	"Operating System :: OS Independent",
 	"Typing :: Typed",

@@ -9,11 +9,14 @@ ascl_net_scraper
    :alt: PyPI Downloads
    :target: https://pypi.org/project/ascl_net_scraper
 .. image:: https://img.shields.io/pypi/l/ascl_net_scraper
-   :alt: PyPI License
+   :alt: License
    :target: https://github.com/charmoniumQ/ascl_net_scraper/blob/main/LICENSE
 .. image:: https://img.shields.io/pypi/pyversions/ascl_net_scraper
    :alt: Python Versions
    :target: https://pypi.org/project/ascl_net_scraper
+.. image:: https://img.shields.io/librariesio/sourcerank/pypi/ascl_net_scraper
+   :alt: libraries.io sourcerank
+   :target: https://libraries.io/pypi/ascl_net_scraper
 .. image:: https://img.shields.io/github/stars/charmoniumQ/ascl_net_scraper?style=social
    :alt: GitHub stars
    :target: https://github.com/charmoniumQ/ascl_net_scraper
@@ -23,9 +26,6 @@ ascl_net_scraper
 .. image:: https://img.shields.io/github/last-commit/charmoniumQ/charmonium.determ_hash
    :alt: GitHub last commit
    :target: https://github.com/charmoniumQ/ascl_net_scraper/commits
-.. image:: https://img.shields.io/librariesio/sourcerank/pypi/ascl_net_scraper
-   :alt: libraries.io sourcerank
-   :target: https://libraries.io/pypi/ascl_net_scraper
 .. image:: http://www.mypy-lang.org/static/mypy_badge.svg
    :target: https://mypy.readthedocs.io/en/stable/
    :alt: Checked with Mypy
@@ -34,6 +34,7 @@ ascl_net_scraper
    :alt: Code style: black
 
 Scrapes the data from https://ascl.net
+
 
 ----------
 Quickstart

@@ -2,7 +2,13 @@
 
 ## With Nix
 
-[Nix][nix] is a language-agnostic package manager that installs packages locally. [Nix Flakes][nix flakes] are a way of specifying dependencies to Nix declaraively. Currently, they are [installed separately][install nix flakes].
+[Nix][nix] is a language-agnostic package manager that installs packages locally. [Nix Flakes][nix flakes] are a way of specifying dependencies to Nix declaraively. Currently, they are [installed separately][install nix flakes]. 
+
+```sh
+$ sh <(curl -L https://nixos.org/nix/install) --daemon
+$ nix-env -iA nixpkgs.nixFlakes
+$ echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
+```
 
 - `nix develop` to get a shell.
 - `nix develop --command ipython` to run a command, such as `ipython`, in the project's environment.
@@ -15,6 +21,15 @@
 
 In addition to Nix, I suggest also installing [direnv][direnv] and [nix-direnv][nix-direnv]. Then simply `cd`ing to the project will activate the project-specific environment.
 
+```sh
+$ nix-env -iA nixpkgs.direnv nixpkgs.nix-direnv
+$ echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+$ echo 'source $HOME/.nix-profile/share/nix-direnv/direnvrc' >> ~/.direnvrc
+
+$ # optional, for prompt
+$ echo 'PS1="\$PREPEND_TO_PS1$PS1"' >> ~/.bashrc
+```
+
 - `cd /path/to/project` to get a shell.
 - `nix develop --command ipython` to run a command, such as `ipython`, in the project's environment.
 
@@ -25,7 +40,13 @@ Consider adding this line in your shell's initfile so you can see when `direnv` 
 
 ## With Poetry
 
-Nix can be trouble to set up, so here is how to use the project without Nix. [Poetry][poetry] is a wrapper around `pip`/`virtualenv`, and it will manage dependencies from PyPI, but *you* have to manage external dependencies, e.g. installing the right version of Python, C libraries, etc. Poetry can be installed globally with `python -m pip install poetry`.
+Nix can be trouble to set up, so here is how to use the project without Nix. [Poetry][poetry] is a wrapper around `pip`/`virtualenv`, and it will manage dependencies from PyPI, but *you* have to manage external dependencies, e.g. installing the right version of Python, C libraries, etc.
+
+```
+$ sudo apt install -y python3 python3-pip
+$ python -m pip --user --upgrade install poetry
+$ if ! grep "$HOME/.local/bin" <(echo $PATH) ; then echo 'PATH=$HOME/.local/bin:$PATH' >> .bashrc fi
+```
 
 - `poetry shell` to get a shell.
 - `poetry run ipython` to run a command, such as `ipython`, in the project's environment.
