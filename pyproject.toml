@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ascl_net_scraper"
-version = "0.3.4"
+version = "0.3.5"
 description = "Scrapes the data from https://ascl.net"
 authors = ["Samuel Grayson <sam+dev@samgrayson.me>"]
 license = "MIT"
@@ -63,7 +63,7 @@ color_output = true
 #mypy_path = stubs
 
 [tool.bump2version]
-current_version = "0.3.4"
+current_version = "0.3.5"
 commit = true
 tag = true
 
