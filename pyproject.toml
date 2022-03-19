@@ -82,6 +82,7 @@ commands =
     {toxinidir}/script.py per-env-tests
 """
 
+
 [tool.poetry.dev-dependencies]
 autoimport = "^0.7.5"
 isort = "^5.10.0"

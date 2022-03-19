@@ -263,20 +263,14 @@ async def all_tests(interactive: bool = True) -> None:
 
 
 async def all_tests_inner(interactive: bool) -> None:
-    async def poetry_build() -> None:
-        dist = Path("dist")
-        if dist.exists():
-            shutil.rmtree(dist)
-        await pretty_run(["rstcheck", "README.rst"])
-        await pretty_run(["poetry", "build", "--quiet"])
-        await pretty_run(["twine", "check", "--strict", *dist.iterdir()])
+    dist = Path("dist")
+    if dist.exists():
         shutil.rmtree(dist)
+    await pretty_run(["rstcheck", "README.rst"])
+    await pretty_run(["poetry", "build", "--quiet"])
+    await pretty_run(["twine", "check", "--strict", *dist.iterdir()])
+    shutil.rmtree(dist)
 
-    await asyncio.gather(
-        poetry_build(),
-        docs_inner(),
-        pytest(use_coverage=False, show_slow=False),
-    )
     # Tox already has its own parallelism,
     # and it shows a nice stateus spinner.
     # so I'll not `await pretty_run`
@@ -339,15 +333,10 @@ def dct_to_args(dct: Mapping[str, Union[bool, int, float, str]]) -> List[str]:
 @app.command()
 def publish(
         version_part: VersionPart,
-        verify: bool = True,
         gen_docs: bool = True,
         bump: bool = True,
 ) -> None:
-    if verify:
-        asyncio.run(all_tests_inner(True))
-    elif gen_docs:
-        # verify => all_tests_inner => docs already.
-        # This is only need for the case where (not verify and docs).
+    if gen_docs:
         asyncio.run(docs_inner())
     if bump:
         subprocess.run(
@@ -372,7 +361,7 @@ def publish(
     if "TWINE_PASSWORD" in os.environ:
         extra_args += ["--password", os.environ["TWINE_PASSWORD"]]
     subprocess.run(
-        ["poetry", "publish", "--build", **extra_args],
+        ["poetry", "publish", "--build", *extra_args],
         check=True,
     )
     shutil.rmtree("dist")
