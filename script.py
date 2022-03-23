@@ -332,9 +332,9 @@ def dct_to_args(dct: Mapping[str, Union[bool, int, float, str]]) -> List[str]:
 
 @app.command()
 def publish(
-        version_part: VersionPart,
-        gen_docs: bool = True,
-        bump: bool = True,
+    version_part: VersionPart,
+    gen_docs: bool = True,
+    bump: bool = True,
 ) -> None:
     if gen_docs:
         asyncio.run(docs_inner())

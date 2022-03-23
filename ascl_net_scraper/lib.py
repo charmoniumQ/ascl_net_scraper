@@ -2,15 +2,17 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Iterable, List, Mapping, Optional, Tuple, TypeVar, cast
 
 import bs4
 import requests
-from charmonium.cache import MemoizedGroup, memoize
+from charmonium.cache import DirObjStore, MemoizedGroup, memoize
 from tqdm import tqdm
 
 DEFAULT_PARSER = "html5lib"
-group = MemoizedGroup(fine_grain_persistence=True, size="10MiB")
+cache_path = Path.home() / ".cache/ascl_net_scraper/"
+group = MemoizedGroup(size="10MiB", obj_store=DirObjStore(path=cache_path))
 
 
 @dataclass
